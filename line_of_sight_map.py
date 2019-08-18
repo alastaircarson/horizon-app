@@ -2,6 +2,10 @@ import math
 from height_data import HeightData
 from PIL import Image
 
+"""
+Line Of Sight Map
+"""
+
 MAX_DISTANCE = 50000
 SAMPLE_DISTANCE = 50
 MILS = 6400

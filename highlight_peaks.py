@@ -1,7 +1,15 @@
 from math import sqrt, atan2, pi
 
+"""
+Creates a list of Visible Peaks based on a Line of Sight Map
+Contains a list of Munros and Corbetts in Scotland
+"""
+
 
 class VisiblePeak:
+    """
+    Visible Peak
+    """
     def __init__(self, b, e, n, d, h, v):
         self.bearing = b
         self.elevation = e

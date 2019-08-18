@@ -3,9 +3,6 @@ from highlight_peaks import HighlightPeaks
 
 
 def test_location():
-    # home
-    # x = 306300.6
-    # y = 671820.12
     # castle
     x = 279093
     y = 693777
