@@ -1,8 +1,10 @@
 from cachetools import cached, LRUCache
+from s3_service import S3Service
 import struct
 
 # Path/format of the height data files
 DATA_ROOT = "C:\Projects\Terrain\Data\Processed\data\{0}\{1}.bin"
+S3_DATA_ROOT = "data/{0}/{1}.bin"
 # Float type length used to calculate offset within file
 FLOAT_SIZE = 4
 # No of columns in the files used to calculate offset within file
@@ -81,5 +83,10 @@ class HeightData:
         :return:
         """
         s = grid[0:2]
-        file_path = DATA_ROOT.format(s, grid)
-        return open(file_path, "rb")
+        # file_path = DATA_ROOT.format(s, grid)
+        # return open(file_path, "rb")
+        s3_file_path = S3_DATA_ROOT.format(s.lower(), grid.lower())
+        print(s3_file_path)
+        s3_service = S3Service()
+        buffer = s3_service.download_binary_file("tw-foss4g-data", s3_file_path)
+        return buffer

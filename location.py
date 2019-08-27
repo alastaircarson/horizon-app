@@ -1,5 +1,7 @@
 from line_of_sight_map import LineOfSightMap
 from highlight_peaks import HighlightPeaks
+from s3_service import S3Service
+from io import BytesIO
 
 
 def test_location():
@@ -18,6 +20,12 @@ def test_location():
     peaks = peak_finder.get_visible_peaks(map, x, y, map.observation_height)
     save_to_file(peaks)
     print("written peaks")
+
+#    s3_service = S3Service()
+#    buffer = s3_service.download_binary_file("tw-foss4g-data", "data/hp/HP40.bin")
+#    print(len(buffer.getvalue()))
+#    upload = BytesIO(buffer.getvalue())
+#    s3_service.upload_binary_file("tw-foss4g-data", "data/hp/test.bin", upload)
 
 
 def save_to_file(peaks):
