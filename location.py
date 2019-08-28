@@ -2,6 +2,7 @@ from line_of_sight_map import LineOfSightMap
 from highlight_peaks import HighlightPeaks
 from s3_service import S3Service
 from io import BytesIO
+from viewpoint import Viewpoint
 
 
 def test_location():
@@ -10,16 +11,24 @@ def test_location():
     y = 693777
     print("{0}, {1}".format(x, y))
 
-    map = LineOfSightMap(x, y, None)
-    map.create_map()
-    print("created map")
-    map.create_image()
-    print("created image")
+    viewpoints = Viewpoint()
 
-    peak_finder = HighlightPeaks()
-    peaks = peak_finder.get_visible_peaks(map, x, y, map.observation_height)
-    save_to_file(peaks)
-    print("written peaks")
+    entries = viewpoints.get_unprocessed_viewpoints()
+
+    print(entries)
+
+    viewpoints.set_viewpoint_as_processed(entries[0]["id"], "test.png", "test.json")
+
+#    map = LineOfSightMap(x, y, None)
+#    map.create_map()
+#    print("created map")
+#    map.create_image()
+#    print("created image")
+
+#    peak_finder = HighlightPeaks()
+#    peaks = peak_finder.get_visible_peaks(map, x, y, map.observation_height)
+#    save_to_file(peaks)
+#    print("written peaks")
 
 #    s3_service = S3Service()
 #    buffer = s3_service.download_binary_file("tw-foss4g-data", "data/hp/HP40.bin")

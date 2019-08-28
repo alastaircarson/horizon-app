@@ -7,4 +7,6 @@ create table viewpoint
 	peaks_file character varying(50)
 );
 
-create index viewpoint_sdx on viewpoint(geometry) using gist;
+create index viewpoint_sdx on viewpoint using gist (geometry);
+
+insert into viewpoint(geometry, processed) values(ST_GeomFromText('POINT(279093 693777)',27700), false);

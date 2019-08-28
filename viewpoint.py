@@ -1,15 +1,32 @@
-from psycopg2 import connect, sql
+from psycopg2 import connect
+from psycopg2.sql import SQL, Literal
 
 
 class Viewpoint:
 
-    def __int__(self):
-        connection = connect()
+    def __init__(self):
+        self.conn = connect("dbname='lcdev' user='postgres' host='192.168.16.16' password='xxx'")
+        self.cursor = self.conn.cursor()
 
     def get_unprocessed_viewpoints(self):
-        """ Creates a new project_document in database """
-        return []
+        sql_get_unprocessed = """
+            select id, st_x(geometry) as x, st_y(geometry) as y
+            from viewpoint where not processed
+            """
+        self.cursor.execute(sql_get_unprocessed)
+        rows = self.cursor.fetchall()
+        return [{"id": row[0], "x":row[1], "y":row[2]} for row in rows]
 
-    def set_viewpoint_as_processed(self, id, image_file, peaks_file):
-        """ Helper method that allows app to persist the current state of a project_document """
-        pass
+    def set_viewpoint_as_processed(self, vid, image_file, peaks_file):
+        sql_set_processed = """
+            update viewpoint
+            set processed = true, image_file = 'image_file', peaks_file = 'peaks_file'
+            where id = 1
+            """
+        params = {"vid": vid, "image_file": image_file, "peaks_file": peaks_file}
+        try:
+            print(f"update record: {vid}")
+            self.cursor.execute(sql_set_processed, params)
+            print(f"updated record: {vid}")
+        except Exception as e:
+            print(f"error {str(e)}")
