@@ -67,10 +67,13 @@ class HeightData:
         :return:
         """
         file_reader = self._read_height_file(grid)
-        position = (((ROWS - 1 - oy) * COLS) + ox) * FLOAT_SIZE
-        file_reader.seek(position)
-        float_value = struct.unpack('f', file_reader.read(FLOAT_SIZE))
-        return round(float_value[0], 1)
+        if file_reader is None:
+            return 0
+        else:
+            position = (((ROWS - 1 - oy) * COLS) + ox) * FLOAT_SIZE
+            file_reader.seek(position)
+            float_value = struct.unpack('f', file_reader.read(FLOAT_SIZE))
+            return round(float_value[0], 1)
 
     # Cache for the height files
     file_cache = LRUCache(maxsize=10)
@@ -88,5 +91,5 @@ class HeightData:
         s3_file_path = S3_DATA_ROOT.format(s.lower(), grid.lower())
         print(s3_file_path)
         s3_service = S3Service()
-        buffer = s3_service.download_binary_file("tw-foss4g-data", s3_file_path)
+        buffer = s3_service.download_binary_data("tw-foss4g-data", s3_file_path)
         return buffer

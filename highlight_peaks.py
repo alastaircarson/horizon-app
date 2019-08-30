@@ -49,6 +49,27 @@ class HighlightPeaks:
                     visible_peaks.append(visible_peak)
         return visible_peaks
 
+    def save_to_file(self, peaks, peaks_filename):
+        with open(peaks_filename, "w") as peaks_file:
+            peaks_file.write("{\"peaks\":[")
+            first = True
+            for peak in peaks:
+                if not first:
+                    peaks_file.write(",\n")
+                line = \
+                    """
+                        {{\"bearing\": {0},
+                        \"elevation\": {1},
+                        \"distance\": {2},
+                        \"name\": \"{3}\",
+                        \"height\": {4},
+                        \"visible\": {5}}}
+                    """.format(peak.bearing, peak.elevation, peak.distance, peak.name, peak.height,
+                               "true" if peak.visible else "false")
+                peaks_file.write(line)
+                first = False
+            peaks_file.write("]}")
+
     @staticmethod
     def _is_within_range(x1, y1, x2, y2, max_range):
         """

@@ -130,7 +130,7 @@ class LineOfSightMap:
         for bearing in list(range(6400)):
             self.bearings.append(self.calculator.get_bearing_line_of_sight(bearing))
 
-    def create_image(self):
+    def create_image(self, filename):
         img = Image.new('RGBA', (6400, 1600))
         pixels = img.load()
         for i in range(img.size[0]):
@@ -153,7 +153,7 @@ class LineOfSightMap:
             # Fill in gap to the top
             # for j in range(last_peak, 801, 1):
             #    pixels[i, 800-j] = (0, 0, 0)
-        img.save('test.png')
+        img.save(filename)
 
     def is_visible(self, bearing, elevation, distance):
         """

@@ -1,6 +1,6 @@
 create table viewpoint
 (
-	id serial,
+	id serial primary key,
 	geometry geometry(Point,27700),
 	processed boolean default false,
 	image_file character varying(50),

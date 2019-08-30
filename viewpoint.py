@@ -17,16 +17,17 @@ class Viewpoint:
         rows = self.cursor.fetchall()
         return [{"id": row[0], "x":row[1], "y":row[2]} for row in rows]
 
-    def set_viewpoint_as_processed(self, vid, image_file, peaks_file):
+    def set_viewpoint_as_processed(self, id, image_file, peaks_file):
         sql_set_processed = """
             update viewpoint
-            set processed = true, image_file = 'image_file', peaks_file = 'peaks_file'
-            where id = 1
+            set processed = true, image_file = %(image_file)s, peaks_file = %(peaks_file)s
+            where id = %(id)s;
             """
-        params = {"vid": vid, "image_file": image_file, "peaks_file": peaks_file}
+        # params = {"vid": vid, "image_file": image_file, "peaks_file": peaks_file}
         try:
-            print(f"update record: {vid}")
-            self.cursor.execute(sql_set_processed, params)
-            print(f"updated record: {vid}")
+            print(f"update record: {id}")
+            self.cursor.execute(sql_set_processed, {"id": id, "image_file": image_file, "peaks_file": peaks_file})
+            self.conn.commit()
+            print(f"updated record: {id}")
         except Exception as e:
             print(f"error {str(e)}")
