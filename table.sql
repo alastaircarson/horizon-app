@@ -1,3 +1,4 @@
+-- Connect to Postgres Database
 
 CREATE DATABASE viewpointdb
   WITH OWNER = twadmin
@@ -8,6 +9,8 @@ CREATE DATABASE viewpointdb
        CONNECTION LIMIT = -1;
 GRANT CONNECT, TEMPORARY ON DATABASE viewpointdb TO public;
 GRANT ALL ON DATABASE viewpointdb TO twadmin;
+
+-- Connect to viewpointdb Database
 
 CREATE EXTENSION postgis;
 
@@ -27,4 +30,5 @@ create index viewpoint_sdx on viewpoint using gist (geometry);
 GRANT SELECT,INSERT,UPDATE,DELETE ON table viewpoint TO viewpoint_user;
 GRANT USAGE on SEQUENCE viewpoint_id_seq to viewpoint_user;
 
+-- Test as viewpoint_user
 --insert into viewpoint(geometry, processed) values(ST_GeomFromText('POINT(279093 693777)',27700), false);
