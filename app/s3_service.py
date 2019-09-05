@@ -4,8 +4,8 @@ from io import BytesIO
 
 class S3Service:
 
-    AWS_ACCESS_KEY = "xxx"
-    AWS_SECRET_KEY = "xxx"
+    AWS_ACCESS_KEY = "AKIAJLNQTOT2I6XYRTMA"
+    AWS_SECRET_KEY = "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"
 
     def __init__(self):
         """ Initialises the S3 Service (low-level client and higher-level resource objects) """

@@ -1,11 +1,10 @@
 from psycopg2 import connect
-from psycopg2.sql import SQL, Literal
 
 
 class Viewpoint:
 
     def __init__(self):
-        self.conn = connect("dbname='lcdev' user='postgres' host='192.168.16.16' password='xxx'")
+        self.conn = connect("dbname='lcdev' user='postgres' host='192.168.16.16' password='P0stgres'")
         self.cursor = self.conn.cursor()
 
     def get_unprocessed_viewpoints(self):

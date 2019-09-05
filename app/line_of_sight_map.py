@@ -1,5 +1,5 @@
 import math
-from src.height_data import HeightData
+from height_data import HeightData
 from PIL import Image
 
 """
