@@ -1,8 +1,8 @@
-from line_of_sight_map import LineOfSightMap
-from highlight_peaks import HighlightPeaks
-from s3_service import S3Service
+from src.line_of_sight_map import LineOfSightMap
+from src.highlight_peaks import HighlightPeaks
+from src.s3_service import S3Service
 import os
-from viewpoint import Viewpoint
+from src.viewpoint import Viewpoint
 
 
 def test_location():

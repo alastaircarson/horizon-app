@@ -1,5 +1,5 @@
 from cachetools import cached, LRUCache
-from s3_service import S3Service
+from src.s3_service import S3Service
 import struct
 
 # Path/format of the height data files
