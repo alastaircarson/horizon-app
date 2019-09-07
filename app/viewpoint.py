@@ -1,10 +1,11 @@
 from psycopg2 import connect
+from config import Config
 
 
 class Viewpoint:
 
     def __init__(self):
-        self.conn = connect("dbname='lcdev' user='postgres' host='192.168.16.16' password='XXX'")
+        self.conn = connect(Config.DATABASE_CONNECTION_STRING)
         self.cursor = self.conn.cursor()
 
     def get_unprocessed_viewpoints(self):
@@ -22,11 +23,8 @@ class Viewpoint:
             set processed = true, image_file = %(image_file)s, peaks_file = %(peaks_file)s
             where id = %(id)s;
             """
-        # params = {"vid": vid, "image_file": image_file, "peaks_file": peaks_file}
         try:
-            print(f"update record: {id}")
             self.cursor.execute(sql_set_processed, {"id": id, "image_file": image_file, "peaks_file": peaks_file})
             self.conn.commit()
-            print(f"updated record: {id}")
         except Exception as e:
             print(f"error {str(e)}")

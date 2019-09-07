@@ -104,8 +104,6 @@ class LineOfSightCalculator:
                 peaks.append((int(last_angle), dist - 50))
                 max_angle = last_angle
             last_angle = angle
-
-        #print(peaks)
         return peaks
 
     @staticmethod
@@ -114,8 +112,6 @@ class LineOfSightCalculator:
         for dist in list(range(SAMPLE_DISTANCE, MAX_DISTANCE, SAMPLE_DISTANCE)):
             interval = (CHECK_DISTANCE * 1000) // dist
             angles.append(interval)
-        # print(angles)
-        # print(len(angles))
         return angles
 
 
@@ -124,7 +120,6 @@ class LineOfSightMap:
         self.bearings = []
         self.calculator = LineOfSightCalculator(x, y, h)
         self.observation_height = self.calculator.h
-        print("Observation Height: {0}".format(self.observation_height))
 
     def create_map(self):
         for bearing in list(range(6400)):

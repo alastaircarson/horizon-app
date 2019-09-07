@@ -1,21 +1,18 @@
 import boto3
 from io import BytesIO
+from config import Config
 
 
 class S3Service:
-
-    AWS_ACCESS_KEY = "XXX"
-    AWS_SECRET_KEY = "XXX"
-
     def __init__(self):
         """ Initialises the S3 Service (low-level client and higher-level resource objects) """
         self.s3_client = boto3.client('s3',
-                                      aws_access_key_id=self.AWS_ACCESS_KEY,
-                                      aws_secret_access_key=self.AWS_SECRET_KEY)
+                                      aws_access_key_id=Config.S3_ACCESS_KEY,
+                                      aws_secret_access_key=Config.S3_ACCESS_SECRET_KEY)
 
         self.s3_resource = boto3.resource('s3',
-                                          aws_access_key_id=self.AWS_ACCESS_KEY,
-                                          aws_secret_access_key=self.AWS_SECRET_KEY)
+                                          aws_access_key_id=Config.S3_ACCESS_KEY,
+                                          aws_secret_access_key=Config.S3_ACCESS_SECRET_KEY)
 
     def upload_file(self, bucket_name, s3_key, filename):
         """ Upload a binary file to S3 """
